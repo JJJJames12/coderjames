@@ -1,0 +1,38 @@
+class Task:
+    def __init__(self, name, priority):
+        self.name = name
+        self.priority = priority
+
+    def __repr__(self):
+        return f"{self.name} ({self.priority})"
+
+class TaskManager:
+    def __init__(self):
+        self.tasks = []
+
+    def add_task(self, task):
+        self.tasks.append(task)
+
+    def complete_task(self, task_name):
+        for i, task in enumerate(self.tasks):
+            if task.name == task_name:
+                self.tasks.pop(i)
+                return True
+        return False
+
+    def get_highest_priority_task(self):
+        return max(self.tasks, key=lambda x: x.priority)
+
+    def __repr__(self):
+        return "\n".join(map(str, self.tasks))
+
+if __name__ == "__main__":
+    task_manager = TaskManager()
+    task_manager.add_task(Task("Write code", 1))
+    task_manager.add_task(Task("Eat lunch", 2))
+    task_manager.add_task(Task("Write report", 3))
+    print(task_manager)
+    highest_priority = task_manager.get_highest_priority_task()
+    print(f"Highest priority task: {highest_priority}")
+    task_manager.complete_task("Write code")
+    print(task_manager)
